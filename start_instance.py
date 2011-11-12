@@ -6,7 +6,7 @@ looks for these in the environment.
 
 Warning: if you already have a security group called "remoteFreesurfer",
 this script will enable access to port 22 tcp!  This isn't dangerous on
-the machine we boot up, since only keypair access is allowed via ssh,
+the machines we boot up, since only keypair access is allowed via ssh,
 but could be very dangerous if you have other instances in this security group.
 """
 import os
@@ -19,7 +19,7 @@ import boto.ec2
 def get_security_group(conn):
     FS_sec_name = 'remoteFreesurfer'
     security_groups = conn.get_all_security_groups()
-    print security_groups
+    #print security_groups
     try:
         fs_security_group = [sg for sg in security_groups if sg.name == FS_sec_name][0]
         print FS_sec_name, 'security group already exists'
@@ -59,7 +59,7 @@ def get_key_pair_name_and_pem_file(conn, pem_filename=None):
     else:
         pems = glob(os.path.expanduser('~/*.pem'))
         pems.extend(glob('./*.pem'))
-    print pems
+    #print pems
     for pem in pems:
         name = os.path.basename(pem)[:-4]
         match = [k for k in keys if k.name == name]
