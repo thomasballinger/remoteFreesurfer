@@ -1,16 +1,20 @@
 Spins up amazon ec2 instances and runs freesurfer recon-all on them.
 
-Requires Python (I think > 2.5, and certainly not 3)
+Requires Python (I think anything >= 2.5 should work, but certainly not 3)
 
-python requirements:
+Python requirements:
 
 * boto
 * fabric
 
 both installable via easy_install
 
-
 In the future this will be simpler, but for now these are the instructions:
+
+Note: You currently need to manually terminate your amazon ec2 instances once 
+you're finished with them, or you'll continue to be charged ~$2 per day
+for them! Visit this url to do so:
+https://console.aws.amazon.com/ec2/
 
 * Get an Amazon EC2 account
 
@@ -77,3 +81,5 @@ Use the "fab" command line tool to do these things for you:
 
     % fab -H ec2-user@ec2-50-17-174-6.compute-1.amazonaws.com \
         -i ~/tomworkkey.pem download:BillyBob,/home/tomb/fsoutput/
+
+* Finally: REMEMBER TO TERMINATE YOUR INSTANCES!
