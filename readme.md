@@ -9,6 +9,9 @@ Python requirements:
 
 both installable via easy_install
 
+Installation: download the two python files, "fabfile.py" and
+"start_instance.py"
+
 In the future this will be simpler, but for now these are the instructions:
 
 Note: You currently need to manually terminate your amazon ec2 instances once 
