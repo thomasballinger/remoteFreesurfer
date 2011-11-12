@@ -1,0 +1,5 @@
+*.nii.gz
+*.pyc
+*.swp
+*.swo
+*.nii
