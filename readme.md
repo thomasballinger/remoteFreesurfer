@@ -1,5 +1,8 @@
 Spins up amazon ec2 instances and runs freesurfer recon-all on them.
 
+Uses a ami created by Pedro Paulo de Magalhães Oliveira Junior
+(see freesurfer mailing list for contact info)
+
 Requires Python (I think anything >= 2.5 should work, but certainly not 3)
 
 Python requirements:
