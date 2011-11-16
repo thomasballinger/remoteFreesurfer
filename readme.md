@@ -1,4 +1,13 @@
-Spins up amazon ec2 instances and runs freesurfer recon-all on them.
+Scripts that spins up amazon ec2 instances and runs freesurfer recon-all on them.
+Thomas Ballinger
+
+If you'd like to use these scripts to run freesurfer on an Amazon EC2 server, feel
+free to send me an email or to sent a question to the freesurfer mailing list!
+My email is my full name, first then last, and is a US gmail address.
+Even if you don't need help, I'd love to hear from you if you're using these scripts.
+
+Uses a ami created by Pedro Paulo de Magalhães Oliveira Junior
+(see freesurfer mailing list for contact info)
 
 Requires Python (I think anything >= 2.5 should work, but certainly not 3)
 
