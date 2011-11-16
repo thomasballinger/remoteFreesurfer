@@ -76,10 +76,18 @@ def get_ec2_connection():
     return conn
 
 def get_ami(conn):
+    # This one isn't good anymore, was made private because it
+    #  included a licence file
     # ami_id for 060244368407/FREESURFER51
-    fs51_ami_id = 'ami-5dc10834'
-    fs51 = conn.get_image(fs51_ami_id)
-    return fs51
+    #fs51_ami_id = 'ami-5dc10834'
+
+    # ami_id for Basic 32-bit Amazon Linux AMI 2011.09
+    #ami_id = 'ami-31814f58'
+
+    # ami_id for something that was on the freesurfer wiki
+    ami_id = 'ami-5dc10834'
+    ami = conn.get_image(ami_id)
+    return ami
 
 def start_instance():
     """Returns how to access started instance. Blocks until instance is ready."""

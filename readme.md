@@ -52,13 +52,13 @@ Use the "fab" command line tool to do these things for you:
 
         check        Displays the current status of a subject
         checkScreen  Installs screen if not found at /usr/bin/screen
+        checkLicense Prompts for license file text if not yet entered
         download     Download a subject folder to local computer
         remoteFS     Uploads file and runs recon-all on it
         start        Runs recon-all in a screen session
         upload       Uploads a file to home directory
 
-    % fab -H ec2-user@ec2-50-17-174-6.compute-1.amazonaws.com \
-    -i ~/tomworkkey.pem remoteFS:brainScan.nii.gz,BillyBob
+    % fab -H ec2-user@ec2-50-17-174-6.compute-1.amazonaws.com -i ~/tomworkkey.pem remoteFS:brainScan.nii.gz,BillyBob
          
     [ec2-user@ec2-50-17-174-6.compute-1.amazonaws.com] Executing task 'remoteFS'
     [ec2-user@ec2-50-17-174-6.compute-1.amazonaws.com] put: s0001_brain.nii.gz -> /home/ec2-user/s0001_brain.nii.gz

@@ -2,25 +2,51 @@
 """Run freesurfer on local data, and hopefully make troubleshooting possible"""
 
 from fabric.api import run, sudo, local
-from fabric.operations import put, get
-from fabric.contrib.files import exists
+from fabric.operations import put, get, prompt
+from fabric.contrib.files import exists, append
 from fabric.api import env
 
 subjects_dir = '/usr/local/freesurfer/subjects/'
+license_location = '/usr/local/freesurfer/.license'
 
 def upload(f):
-    """Uploads a file to home directory"""
+    """upload:/local/file
+    Uploads a file to home directory"""
     put(f, '')
 
 def checkScreen():
-    """Installs screen if not found at /usr/bin/screen"""
+    """checkScreen
+    Installs screen if not found at /usr/bin/screen"""
     match = exists('/usr/bin/screen')
     print match
     if not match:
         sudo('yum -y install screen')
 
+def checkLicense():
+    """checkLicense
+    Checks for license, prompts for license text if not found"""
+    if exists(license_location):
+        return True
+    else:
+        print 'Freesurfer .license file not found!'
+        print 'If you don\'t already have one, check out'
+        print 'http://surfer.nmr.mgh.harvard.edu/fswiki/Registration'
+        line1 = prompt('enter first line (of 3) of freesurfer .license file',
+                validate='.*[@].*')
+        line2 = prompt('enter second line of freesurfer .license file',
+                validate='\d+')
+        line3 = prompt('enter first line of freesurfer .license file',
+                validate='.*')
+        append(license_location, '\n'.join([line1, line2, line3]))
+
+def uploadLicense(filename):
+    """uploadLicense:/local/file/.license
+    Uploads a string or string found in file to .license file"""
+    upload(filename, license_location)
+
 def start(f, subject=None):
-    """Runs recon-all in a screen session"""
+    """start:remoteFile[,subjectName]
+    Runs recon-all in a screen session"""
     checkScreen()
     if not subject:
         subject = f.split('/')[-1].split('.')[0]
@@ -36,11 +62,14 @@ def start(f, subject=None):
     local('ssh -i '+env.key_filename[0]+' '+env.host_string+' screen -m -d '+fs_cmd)
 
 def remoteFS(f, subject=None):
-    """Uploads file and runs recon-all on it"""
+    """remoteFS:/local/file[,subjectName]
+    Uploads file and runs recon-all on it"""
     upload(f)
     start(f, subject)
 
 def check(subject):
+    """check:subjectName
+    Displays the touches folder of a Freesurfer subject"""
     touches =  run('ls ' + subjects_dir + subject + '/touch/')
     finished = exists(subjects_dir + subject + '/touch/wmaparc.stats.touch')
     if finished:
@@ -49,6 +78,8 @@ def check(subject):
         return False
 
 def download(subject, dest):
+    """download:subjectName,local/file/or/folder
+    Downloads a subject folder"""
     if not dest:
         dest = ''
     get(subjects_dir + subject, dest)
