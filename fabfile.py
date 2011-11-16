@@ -5,6 +5,7 @@ from fabric.api import run, sudo, local
 from fabric.operations import put, get, prompt
 from fabric.contrib.files import exists, append
 from fabric.api import env
+import os
 
 subjects_dir = '/usr/local/freesurfer/subjects/'
 license_location = '/usr/local/freesurfer/.license'
@@ -65,7 +66,7 @@ def remoteFS(f, subject=None):
     """remoteFS:/local/file[,subjectName]
     Uploads file and runs recon-all on it"""
     upload(f)
-    start(f, subject)
+    start('/home/ec2-user/'+os.path.basename(f), subject)
 
 def check(subject):
     """check:subjectName
