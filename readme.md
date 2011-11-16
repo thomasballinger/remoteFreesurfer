@@ -6,7 +6,7 @@ free to send me an email or to sent a question to the freesurfer mailing list!
 My email is my full name, first then last, and is a US gmail address.
 Even if you don't need help, I'd love to hear from you if you're using these scripts.
 
-Uses a ami created by Pedro Paulo de Magalhães Oliveira Junior
+Uses an ami created by Nick Schmansky, posted about on the Freesurfer Wiki
 (see freesurfer mailing list for contact info)
 
 Requires Python (I think anything >= 2.5 should work, but certainly not 3)
@@ -34,7 +34,8 @@ https://console.aws.amazon.com/ec2/
 
 * Start an instance:
 
-type the stuff after a '%'
+The '%' character represents a prompt, and so the text following it is to be
+typed by you.
 
 
     % python start_instance.py
@@ -50,7 +51,8 @@ type the stuff after a '%'
     /home/tomb/tomworkkey.pem
     you need to log on as ec2-user
 
-* You've got your instance up now - if you so choose, manually upload files and run freesurfer, OR
+* You've got your instance up now --
+now you can either manually upload files and run freesurfer, OR
 
 Use the "fab" command line tool to do these things for you:
 
@@ -66,6 +68,21 @@ Use the "fab" command line tool to do these things for you:
         remoteFS     Uploads file and runs recon-all on it
         start        Runs recon-all in a screen session
         upload       Uploads a file to home directory
+
+    $ fab -H ec2-user@ec2-50-17-174-6.compute-1.amazonaws.com -i ~/tomworkkey.pem checkLicense
+    [ec2-user@ec2-50-17-174-6.compute-1.amazonaws.com] Executing task 'checkLicense'
+    Freesurfer .license file not found!
+    If you don't already have one, check out
+    http://surfer.nmr.mgh.harvard.edu/fswiki/Registration
+    enter first line (of 3) of freesurfer .license file <text you copy and paste>
+    enter second line of freesurfer .license file <text you copy and paste>
+    enter first line of freesurfer .license file <text you copy and paste>
+    [ec2-user@ec2-50-17-174-6.compute-1.amazonaws.com] run: echo 'first line
+    second line
+    third line' >> /usr/local/freesurfer/.license
+
+    Done.
+    Disconnecting from ec2-user@ec2-50-17-174-6.compute-1.amazonaws.com... done.
 
     % fab -H ec2-user@ec2-50-17-174-6.compute-1.amazonaws.com -i ~/tomworkkey.pem remoteFS:brainScan.nii.gz,BillyBob
          
